@@ -1,0 +1,4 @@
+interface:
+  display_name: "Excel Pivot Distinct Count"
+  short_description: "Rebuild Excel pivot with distinct client counts"
+  default_prompt: "Use $excel-pivot-distinct-count to rebuild my workbook pivot and count unique clients by 资金账号 under each 推荐人姓名."
