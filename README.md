@@ -1,35 +1,34 @@
 ﻿# Excel 透视表非重复计数 Skill
 
-这是一个给 Codex 使用的 Skill，用于在 Excel 中自动创建/重建数据透视表，按“推荐人姓名”统计唯一客户数（以“资金账号”为唯一标识）。
+该仓库现在包含两个版本的 Skill：
 
-## 功能说明
+- PowerShell 版本（原版本，保留不变）
+- Python 版本（新增）
 
-- 保持原始数据表结构不变，不依赖辅助列。
-- 自动删除旧的 `统计透视` 工作表并重建。
-- 透视表行字段使用 `推荐人姓名`。
-- 透视表值字段使用 `资金账号`，汇总方式为 **非重复计数（Distinct Count）**。
-- 设置透视缓存为打开文件时可刷新。
+两个版本都实现同一目标：按 `推荐人姓名` 统计唯一客户数，唯一标识是 `资金账号`，汇总方式为数据透视表的 **非重复计数（Distinct Count）**。
 
-## 目录结构
+## 版本目录
 
-- `SKILL.md`：Skill 触发与使用说明。
-- `agents/openai.yaml`：UI 元数据。
-- `scripts/rebuild_pivot_distinct_count.ps1`：实际执行脚本。
+- PowerShell 版（根目录）
+  - `SKILL.md`
+  - `agents/openai.yaml`
+  - `scripts/rebuild_pivot_distinct_count.ps1`
+- Python 版（子目录）
+  - `excel-pivot-distinct-count-python/SKILL.md`
+  - `excel-pivot-distinct-count-python/agents/openai.yaml`
+  - `excel-pivot-distinct-count-python/scripts/rebuild_pivot_distinct_count.py`
 
-## 快速使用
+## Python 版快速使用
 
-在 Windows + Excel 桌面版环境执行：
+```powershell
+python "excel-pivot-distinct-count-python/scripts/rebuild_pivot_distinct_count.py" --workbook "f:/ai-vscode/订单管理.xlsx"
+```
+
+## PowerShell 版快速使用
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File "scripts/rebuild_pivot_distinct_count.ps1" -WorkbookPath "f:/ai-vscode/订单管理.xlsx"
 ```
-
-## 脚本参数
-
-- `-WorkbookPath`：必填，目标 Excel 文件路径。
-- `-PivotSheetName`：可选，默认 `统计透视`。
-- `-PivotTitle`：可选，默认 `推荐人客户数统计（按资金账号非重复计数）`。
-- `-TableName`：可选，默认 `订单明细`。
 
 ## 数据要求
 
@@ -48,6 +47,6 @@ powershell -ExecutionPolicy Bypass -File "scripts/rebuild_pivot_distinct_count.p
 
 ## 注意事项
 
-- 仅支持 Windows 下通过 Excel COM 自动化。
-- 运行前请关闭目标 Excel 文件，避免文件占用导致保存失败。
+- 两个版本都依赖 Windows + Excel 桌面版（COM 自动化）。
+- Python 版额外需要 `pywin32`：`pip install pywin32`。
 - `资金账号`被视为唯一客户标识，同一账号只计一次。

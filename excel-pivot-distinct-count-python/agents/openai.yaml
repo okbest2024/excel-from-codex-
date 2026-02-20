@@ -1,0 +1,4 @@
+interface:
+  display_name: "Excel Pivot Distinct Count Py"
+  short_description: "Rebuild Excel pivot with Python and distinct count"
+  default_prompt: "Use $excel-pivot-distinct-count-python to rebuild my workbook pivot with unique client counting by account."
